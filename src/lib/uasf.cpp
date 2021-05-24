@@ -23,7 +23,7 @@ using namespace jp::visx::uasf;
 const UncertaintyTableElement UncertaintyTableElement::invalid_element = UncertaintyTableElement{UOPERATION_INVALID, NAN, NAN, NAN, NAN};
 UncertaintyTableElement::UncertaintyTableElement(UncertaintyTableElementType type, double value, double uncertainty) : type_(type), value_(value), uncertainty_(uncertainty) {}
 UncertaintyTableElement::UncertaintyTableElement(UncertaintyTableElementType type, const UncertaintyPair *value) : type_(type), value_(value ? value->value : 0.0), uncertainty_(value ? value->uncertainty : 0.0) {}
-UncertaintyTableElement::UncertaintyTableElement(UncertaintyTableElementType type, double value, double uncertainty, double cumulative_value, double cumulative_uncertainty) : type_(type), value_(value), uncertainty_(uncertainty), cumulative_value_(cumulative_value), cumulative_uncertainty_(cumulative_uncertainty_) {}
+UncertaintyTableElement::UncertaintyTableElement(UncertaintyTableElementType type, double value, double uncertainty, double cumulative_value, double cumulative_uncertainty) : type_(type), value_(value), uncertainty_(uncertainty), cumulative_value_(cumulative_value), cumulative_uncertainty_(cumulative_uncertainty) {}
 void UncertaintyTableElement::compute(UncertaintyPair *result_dest) const {
 	if (!result_dest) {
 		return;
