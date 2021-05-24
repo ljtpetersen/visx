@@ -25,10 +25,7 @@
 #endif
 
 #include "../def.h"
-#include <utility>
 #include <vector>
-#include <math.h>
-#include <stdlib.h>
 
 namespace jp {
 	namespace visx {

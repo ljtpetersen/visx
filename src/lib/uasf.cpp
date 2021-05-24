@@ -17,6 +17,8 @@
  */
 
 #include <jp/visx.hpp>
+#include <utility>
+#include <math.h>
 
 using namespace jp::visx::uasf;
 
