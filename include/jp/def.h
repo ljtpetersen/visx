@@ -27,6 +27,7 @@ extern "C" {
 #include <stdbool.h>
 #include <inttypes.h>
 #include <float.h>
+#include <math.h>
 
 // Integer definitions
 typedef unsigned int uint;
@@ -58,8 +59,17 @@ typedef uintptr_t uintptr, uptr;
 #define BOOL_STR(X) ((X) ? "true" : "false")
 
 #define FPTR(RETURN_TYPE, NAME, ...) RETURN_TYPR (*NAME)(__VA_ARGS__)
-#define FPTR_VARR(RETURN_TYPR, NAME, ...) RETURN_TYPR (*NAME[])(__VA_ARGS__)
+#define FPTR_VARR(RETURN_TYPE, NAME, ...) RETURN_TYPE (*NAME[])(__VA_ARGS__)
 #define FPTR_ARR(RETURN_TYPE, NAME, COUNT, ...) RETURN_TYPE (*NAME[COUNT])(__VA_ARGS__)
+
+#define NELS(X) (sizeof((X)) / sizeof(*(X)))
+
+#ifndef EPSILON
+#define EPSILON 0.001
+#endif
+
+#define CMP_DBL(X, Y) (fabs((X) - (Y)) <= 0.001)
+#define JP_FILEPOS __FILE__ ":" JP_STRMACRO(__LINE__)
 
 #ifdef __cplusplus
 }

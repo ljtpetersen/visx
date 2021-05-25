@@ -16,3 +16,5 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 #
 
+add_executable(test-visx-uasf-cpp uasf-test-cpp.cpp)
+target_link_libraries(test-visx-uasf-cpp lvisx)

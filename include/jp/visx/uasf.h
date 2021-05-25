@@ -82,6 +82,8 @@ double jp_visx_uasf_UncertaintyTable_getResultingUncertainty(jp_visx_uasf_Uncert
 void jp_visx_uasf_UncertaintyTable_recompute(jp_visx_uasf_UncertaintyTable *table);
 void jp_visx_uasf_UncertaintyTable_free(jp_visx_uasf_UncertaintyTable *table);
 
+u64 jp_visx_uasf_sigFigCount(const char *s);
+
 #ifdef __cplusplus
 }
 #endif

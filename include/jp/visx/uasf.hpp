@@ -26,6 +26,7 @@
 
 #include "../def.h"
 #include <vector>
+#include <string>
 
 namespace jp {
 	namespace visx {
@@ -67,7 +68,9 @@ namespace jp {
 				UOPERATION_POW,
 				UOPERATION_POWO,
 				UOPERATION_MULC,
+				UOPERATION_MULCO,
 				UOPERATION_DIVC,
+				UOPERATION_DIVCO,
 				UOPERATION_INVALID
 			} UncertaintyTableElementType;
 			typedef struct {
@@ -152,6 +155,7 @@ namespace jp {
 				// This constructor allows the user to specify the starting capacity
 				// of the vector.
 				UncertaintyTable(size_t starting_capacity);
+				UncertaintyTable(size_t starting_capacity, double starting_value, double starting_uncertainty);
 				// This method returns the current capacity of the table.
 				size_t getCapacity(void) const;
 				// This method gets the current value of the table element on a specified
@@ -244,6 +248,9 @@ namespace jp {
 				std::vector<UncertaintyTableElement> elements_;
 				UncertaintyPair result_;
 			}; // class UncertaintyTable
+			void simplifyUncertainty(double value, double uncertainty, double *value_dest, double *uncertainty_dest);
+			u64 sigFigCount(const char *s);
+			u64 sigFigCount(const std::string &s);
 		} // namespace uasf
 	} // namespace visx
 } // namespace jp
