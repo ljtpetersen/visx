@@ -22,6 +22,12 @@ cmake_minimum_required(VERSION 3.1)
 # Set the default build type to release.
 set(CMAKE_BUILD_TYPE "Release" CACHE STRING "")
 
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall")
+
+if (JP_CCOMPAT)
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DJP_CCOMPAT")
+endif()
+
 # Set the output directory for the binaries and shared and static libraries.
 # Only do this if the current directory is the top directory (this project is standalone,
 # not part of a larger project).
@@ -41,3 +47,8 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include/)
 set(CMAKE_CXX_STANDARD 11)
 
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/src/)
+
+if (CMAKE_CURRENT_SOURCE_DIR STREQUAL CMAKE_SOURCE_DIR OR JP_DOTESTS)
+add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/tests/)
+endif()
+

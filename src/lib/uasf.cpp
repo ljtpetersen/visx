@@ -20,6 +20,10 @@
 #include <utility>
 #include <math.h>
 
+#ifndef __cplusplus
+#error Not compiled using C++!
+#endif
+
 using namespace jp::visx::uasf;
 
 // The invalid element has type UOPERATION_INVALID, and values NaN.
@@ -587,3 +591,180 @@ void UncertaintyTable::clear(void) {
 	elements_.emplace_back(UOPERATION_NUL, 0.0, 0.0);
 	compute(0);
 }
+
+// If want C compatibility.
+// Also works: set CMake value JP_CCOMPAT to true.
+#ifdef JP_CCOMPAT
+
+extern "C" {
+
+typedef enum {
+	JP_VISX_UASF_UOPERATION_NUL = -1,
+	JP_VISX_UASF_UOPERATION_ADD,
+	JP_VISX_UASF_UOPERATION_SUB,
+	JP_VISX_UASF_UOPERATION_SUBO,
+	JP_VISX_UASF_UOPERATION_MUL,
+	JP_VISX_UASF_UOPERATION_DIV,
+	JP_VISX_UASF_UOPERATION_DIVO,
+	JP_VISX_UASF_UOPERATION_POW,
+	JP_VISX_UASF_UOPERATION_POWO,
+	JP_VISX_UASF_UOPERATION_MULC,
+	JP_VISX_UASF_UOPERATION_DIVC,
+	JP_VISX_UASF_UOPERATION_INVALID,
+} jp_visx_uasf_UncertaintyTableElementType;
+
+typedef struct {
+	double value,
+		   uncertainty;
+} jp_visx_uasf_UncertaintyPair;
+
+typedef UncertaintyTable jp_visx_uasf_UncertaintyTable;
+
+}
+
+extern "C" jp_visx_uasf_UncertaintyTable *jp_visx_uasf_UncertaintyTable_new1(void);
+extern "C" jp_visx_uasf_UncertaintyTable *jp_visx_uasf_UncertaintyTable_new2(size_t starting_capacity);
+extern "C" size_t jp_visx_uasf_UncertaintyTable_getCapacity(jp_visx_uasf_UncertaintyTable *table);
+extern "C" void jp_visx_uasf_UncertaintyTable_getValue1(jp_visx_uasf_UncertaintyTable *table, size_t row, jp_visx_uasf_UncertaintyPair *result_dest);
+extern "C" double jp_visx_uasf_UncertaintyTable_getValue2(jp_visx_uasf_UncertaintyTable *table, size_t row);
+extern "C" double jp_visx_uasf_UncertaintyTable_getUncertainty(jp_visx_uasf_UncertaintyTable *table, size_t row);
+extern "C" jp_visx_uasf_UncertaintyTableElementType jp_visx_uasf_UncertaintyTable_getType(jp_visx_uasf_UncertaintyTable *table, size_t row);
+extern "C" void jp_visx_uasf_UncertaintyTable_add1(jp_visx_uasf_UncertaintyTable *table, jp_visx_uasf_UncertaintyTableElementType type, double value, double uncertainty);
+extern "C" void jp_visx_uasf_UncertaintyTable_add2(jp_visx_uasf_UncertaintyTable *table, jp_visx_uasf_UncertaintyTableElementType type, const jp_visx_uasf_UncertaintyPair *value);
+extern "C" void jp_visx_uasf_UncertaintyTable_remove(jp_visx_uasf_UncertaintyTable *table, size_t row);
+extern "C" void jp_visx_uasf_UncertaintyTable_clear(jp_visx_uasf_UncertaintyTable *table);
+extern "C" void jp_visx_uasf_UncertaintyTable_addAt1(jp_visx_uasf_UncertaintyTable *table, size_t row, jp_visx_uasf_UncertaintyTableElementType type, double value, double uncertainty);
+extern "C" void jp_visx_uasf_UncertaintyTable_addAt2(jp_visx_uasf_UncertaintyTable *table, size_t row, jp_visx_uasf_UncertaintyTableElementType type, const jp_visx_uasf_UncertaintyPair *value);
+extern "C" void jp_visx_uasf_UncertaintyTable_swap(jp_visx_uasf_UncertaintyTable *table, size_t row1, size_t row2);
+extern "C" void jp_visx_uasf_UncertaintyTable_set1(jp_visx_uasf_UncertaintyTable *table, size_t row, const jp_visx_uasf_UncertaintyPair *value);
+extern "C" void jp_visx_uasf_UncertaintyTable_set2(jp_visx_uasf_UncertaintyTable *table, size_t row, double value);
+extern "C" void jp_visx_uasf_UncertaintyTable_set3(jp_visx_uasf_UncertaintyTable *table, size_t row, double value, double uncertainty);
+extern "C" void jp_visx_uasf_UncertaintyTable_setUncertainty(jp_visx_uasf_UncertaintyTable *table, size_t row, double uncertainty);
+extern "C" void jp_visx_uasf_UncertaintyTable_setStartingValue1(jp_visx_uasf_UncertaintyTable *table, double value, double uncertainty);
+extern "C" void jp_visx_uasf_UncertaintyTable_setStartingValue2(jp_visx_uasf_UncertaintyTable *table, double value);
+extern "C" void jp_visx_uasf_UncertaintyTable_setStartingValue3(jp_visx_uasf_UncertaintyTable *table, const jp_visx_uasf_UncertaintyPair *value);
+extern "C" void jp_visx_uasf_UncertaintyTable_setStartingUncertainty(jp_visx_uasf_UncertaintyTable *table, double uncertainty);
+extern "C" double jp_visx_uasf_UncertaintyTable_getStartingValue1(jp_visx_uasf_UncertaintyTable *table);
+extern "C" double jp_visx_uasf_UncertaintyTable_getStartingUncertainty(jp_visx_uasf_UncertaintyTable *table);
+extern "C" void jp_visx_uasf_UncertaintyTable_getStartingValue2(jp_visx_uasf_UncertaintyTable *table, jp_visx_uasf_UncertaintyPair *value);
+extern "C" size_t jp_visx_uasf_UncertaintyTable_count(jp_visx_uasf_UncertaintyTable *table);
+extern "C" double jp_visx_uasf_UncertaintyTable_getResult1(jp_visx_uasf_UncertaintyTable *table);
+extern "C" void jp_visx_uasf_UncertaintyTable_getResult2(jp_visx_uasf_UncertaintyTable *table, jp_visx_uasf_UncertaintyPair *result_dest);
+extern "C" double jp_visx_uasf_UncertaintyTable_getResultingUncertainty(jp_visx_uasf_UncertaintyTable *table);
+extern "C" void jp_visx_uasf_UncertaintyTable_recompute(jp_visx_uasf_UncertaintyTable *table);
+extern "C" void jp_visx_uasf_UncertaintyTable_free(jp_visx_uasf_UncertaintyTable *table);
+
+UncertaintyTable *jp_visx_uasf_UncertaintyTable_new1(void) {
+	return new UncertaintyTable();
+}
+
+UncertaintyTable *jp_visx_uasf_UncertaintyTable_new2(size_t starting_capacity) {
+	return new UncertaintyTable(starting_capacity);
+}
+
+size_t jp_visx_uasf_UncertaintyTable_getCapacity(UncertaintyTable *table) {
+	return table->getCapacity();
+}
+
+void jp_visx_uasf_UncertaintyTable_getValue1(UncertaintyTable *table, size_t row, UncertaintyPair *result_dest) {
+	table->getValue(row, result_dest);
+}
+
+double jp_visx_uasf_UncertaintyTable_getValue2(UncertaintyTable *table, size_t row) {
+	return table->getValue(row);
+}
+
+double jp_visx_uasf_UncertaintyTable_getUncertainty(UncertaintyTable *table, size_t row) {
+	return table->getUncertainty(row);
+}
+
+jp_visx_uasf_UncertaintyTableElementType jp_visx_uasf_UncertaintyTable_getType(UncertaintyTable *table, size_t row) {
+	return (jp_visx_uasf_UncertaintyTableElementType)table->getType(row);
+}
+
+void jp_visx_uasf_UncertaintyTable_add2(jp_visx_uasf_UncertaintyTable *table, jp_visx_uasf_UncertaintyTableElementType type, const jp_visx_uasf_UncertaintyPair *value) {
+	table->add((UncertaintyTableElementType)type, (const UncertaintyPair *) value);
+}
+
+void jp_visx_uasf_UncertaintyTable_add1(jp_visx_uasf_UncertaintyTable *table, jp_visx_uasf_UncertaintyTableElementType type, double value, double uncertainty) {
+	table->add((UncertaintyTableElementType) type, value, uncertainty);
+}
+
+void jp_visx_uasf_UncertaintyTable_remove(UncertaintyTable *table, size_t row) {
+	table->remove(row);
+}
+
+void jp_visx_uasf_UncertaintyTable_clear(UncertaintyTable *table) {
+	table->clear();
+}
+
+void jp_visx_uasf_UncertaintyTable_addAt1(jp_visx_uasf_UncertaintyTable *table, size_t row, jp_visx_uasf_UncertaintyTableElementType type, double value, double uncertainty) {
+	table->addAt(row, (UncertaintyTableElementType) type, value, uncertainty);
+}
+
+void jp_visx_uasf_UncertaintyTable_addAt2(UncertaintyTable *table, size_t row, jp_visx_uasf_UncertaintyTableElementType type, const jp_visx_uasf_UncertaintyPair *value) {
+	table->addAt(row, (UncertaintyTableElementType) type, (const UncertaintyPair *) value);
+}
+
+void jp_visx_uasf_UncertaintyTable_swap(jp_visx_uasf_UncertaintyTable *table, size_t row1, size_t row2) {
+	table->swap(row1, row2);
+}
+
+void jp_visx_uasf_UncertaintyTable_set1(jp_visx_uasf_UncertaintyTable *table, size_t row, const jp_visx_uasf_UncertaintyPair *value) {
+	table->set(row, (const UncertaintyPair *)value);
+}
+
+void jp_visx_uasf_UncertaintyTable_set2(jp_visx_uasf_UncertaintyTable *table, size_t row, double value) {
+	table->set(row, value);
+}
+
+void jp_visx_uasf_UncertaintyTable_set3(jp_visx_uasf_UncertaintyTable *table, size_t row, double value, double uncertainty) {
+	table->set(row, value, uncertainty);
+}
+
+void jp_visx_uasf_UncertaintyTable_setUncertainty(UncertaintyTable *table, size_t row, double uncertainty) {
+	table->setUncertainty(row, uncertainty);
+}
+
+void jp_visx_uasf_UncertaintyTable_setStartingValue1(UncertaintyTable *table, double value, double uncertainty) {
+	table->setStartingValue(value, uncertainty);
+}
+
+void jp_visx_uasf_UncertaintyTable_setStartingValue2(UncertaintyTable *table, double value) {
+	table->setStartingValue(value);
+}
+
+void jp_visx_uasf_UncertaintyTable_setStartingValue3(UncertaintyTable *table, const jp_visx_uasf_UncertaintyPair *value) {
+	table->setStartingValue((const UncertaintyPair *)value);
+}
+
+void jp_visx_uasf_UncertaintyTable_setStartingUncertainty(UncertaintyTable *table, double value) {
+	table->setStartingUncertainty(value);
+}
+
+size_t jp_visx_uasf_UncertaintyTable_count(UncertaintyTable *table) {
+	return table->count();
+}
+
+double jp_visx_uasf_UncertaintyTable_getResult1(jp_visx_uasf_UncertaintyTable *table) {
+	return table->getResult();
+}
+
+void jp_visx_uasf_UncertaintyTable_getResult2(jp_visx_uasf_UncertaintyTable *table, jp_visx_uasf_UncertaintyPair *result_dest) {
+	table->getResult((UncertaintyPair *)result_dest);
+}
+
+double jp_visx_uasf_UncertaintyTable_getResultingUncertainty(UncertaintyTable *table) {
+	return table->getResultingUncertainty();
+}
+
+void jp_visx_uasf_UncertaintyTable_recompute(UncertaintyTable *table) {
+	table->recompute();
+}
+
+void jp_visx_uasf_UncertaintyTable_free(UncertaintyTable *table) {
+	delete table;
+}
+
+#endif
+

@@ -1,4 +1,4 @@
-/* src/lib/uasf.hpp
+/* include/jp/visx/uasf.hpp
  *
  * This file is part of the VisX project (https://github.com/ljtpetersen/visx).
  * Copyright (c) 2021 James Petersen
@@ -16,8 +16,8 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef JP_VISX_UASF_H
-#define JP_VISX_UASF_H
+#ifndef JP_VISX_UASF_HPP
+#define JP_VISX_UASF_HPP
 
 // Make sure this file is compiled with C++
 #ifndef __cplusplus
@@ -249,3 +249,4 @@ namespace jp {
 } // namespace jp
 
 #endif
+
