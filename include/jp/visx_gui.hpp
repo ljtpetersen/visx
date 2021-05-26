@@ -32,14 +32,9 @@ namespace jp {
 		namespace gui {
 			QApplication *application = nullptr;
 			QMainWindow *main_window = nullptr;
-			QMenuBar *main_menubar = nullptr;
-			enum MainMenus {
-				MM_HELP
-			};
-			QMenu *main_menus[] = {nullptr};
-		}
-	}
-}
+		} // namespace gui
+	} // namespace visx
+} // namespace jp
 
 #endif
 

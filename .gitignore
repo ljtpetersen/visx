@@ -22,4 +22,5 @@
 /lib
 /.be
 *.swp
+/build_log.txt
 
