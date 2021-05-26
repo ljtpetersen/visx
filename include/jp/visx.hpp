@@ -21,4 +21,3 @@
 #endif
 
 #include "visx/uasf.hpp"
-
