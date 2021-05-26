@@ -16,7 +16,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 #
 
-find_package(Qt5 COMPONENTS Core Gui REQUIRED)
+find_package(Qt5 COMPONENTS Widgets REQUIRED)
 add_executable(visx main.cpp)
-target_link_libraries(visx lvisx Qt5::Core Qt5::Gui)
+target_link_libraries(visx lvisx Qt5::Widgets)
 

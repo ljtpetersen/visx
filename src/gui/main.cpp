@@ -16,9 +16,28 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <stdio.h>
+#include <jp/visx_gui.hpp>
+#include <QString>
+
+using namespace jp::visx::gui;
 
 int main(int argc, char *argv[]) {
-	printf("Hello World!\n");
-	return 0;
+	application = new QApplication(argc, argv);
+	main_window = new QMainWindow{nullptr};
+	main_window->setWindowTitle(QString{"VisX"});
+	main_window->resize(800, 600);
+	
+	main_menubar = new QMenuBar{main_window};
+	main_window->setMenuBar(main_menubar);
+	main_menus[MM_HELP] = new QMenu{QString{"Help"}, main_menubar};
+	{
+		QMenu *m_help = main_menus[MM_HELP];
+	}
+	for (uint i = 0; i < NELS(main_menus); ++i) {
+		main_menubar->addMenu(main_menus[i]);
+	}
+	
+	main_window->show();
+	return QApplication::exec();
 }
+

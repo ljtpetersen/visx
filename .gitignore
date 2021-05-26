@@ -20,5 +20,6 @@
 /.vscode
 /bin
 /lib
+/.be
 *.swp
 

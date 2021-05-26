@@ -23,6 +23,6 @@ add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/lib/)
 # number, then build the executable (in GUI).
 # Otherwise, do not build the executable.
 if (NOT VISX_NOEXE)
-#add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/gui/)
+add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/gui/)
 endif()
 
