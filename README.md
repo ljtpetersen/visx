@@ -7,7 +7,7 @@ This project is written in C++ with hooks for C coders. The project is divided i
 which contains the code which serves to calculate the various values, while the *frontend* serves to display the calculations.
 There are two different front-ends, a *console* and a *GUI*.
 
-The GUI is coded with wxWidgets ([https://github.com/wxWidgets/wxWidgets]).
+The GUI is coded with wxWidgets (https://github.com/wxWidgets/wxWidgets).
 According to wxWidgets' modified LGPL license, this project would not be required to include sources, even in the case of static linking.
 Thus, when distributing the binaries of the project, only the source code of this project will be distributed. Nonetheless, proper credit
 to the creators and contributors of *wxWidgets* will be given.
