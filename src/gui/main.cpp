@@ -17,17 +17,10 @@
  */
 
 #include <jp/visx_gui.hpp>
-#include <QString>
 
 using namespace jp::visx::gui;
 
 int main(int argc, char *argv[]) {
-	application = new QApplication(argc, argv);
-	main_window = new QMainWindow{nullptr};
-	main_window->setWindowTitle(QString{"VisX"});
-	main_window->resize(800, 600);
-
-	main_window->show();
-	return QApplication::exec();
+	return 0;
 }
 

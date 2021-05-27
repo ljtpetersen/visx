@@ -22,16 +22,10 @@
 #define JP_VISX_GUI_HPP
 
 #include <jp/def.h>
-#include <QApplication>
-#include <QMenuBar>
-#include <QMainWindow>
-#include <QMenu>
 
 namespace jp {
 	namespace visx {
 		namespace gui {
-			QApplication *application = nullptr;
-			QMainWindow *main_window = nullptr;
 		} // namespace gui
 	} // namespace visx
 } // namespace jp
