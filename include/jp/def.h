@@ -32,7 +32,7 @@ extern "C" {
 // Integer definitions
 typedef unsigned int uint;
 typedef unsigned char uchar;
-typedef int8_t int8, byte, i8;
+typedef int8_t int8, ibyte, i8;
 typedef int16_t int16, i16;
 typedef int32_t int32, i32;
 typedef int64_t int64, i64;

@@ -23,4 +23,5 @@
 /.be
 *.swp
 /build_log.txt
+/wxWidgets
 
