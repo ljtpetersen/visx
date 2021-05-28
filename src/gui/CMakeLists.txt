@@ -17,5 +17,5 @@
 #
 
 add_executable(visx main.cpp)
-target_link_libraries(visx lvisx)
+target_link_libraries(visx lvisx wx::net wx::core wx::base)
 
