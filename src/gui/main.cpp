@@ -17,74 +17,51 @@
  */
 
 #include <jp/visx_gui.hpp>
-#include <wx/wxprec.h>
-
-#ifndef WX_PRECOMP
-#include <wx/wx.h>
-#endif
 
 using namespace jp::visx::gui;
 
-class MyApp : public wxApp {
-public:
-	virtual bool OnInit(void);
-};
+wxIMPLEMENT_APP(Application);
 
-class MyFrame : public wxFrame {
-public:
-	MyFrame(void);
+MainFrame *MainFrame::frame = nullptr;
+Application *Application::application = nullptr;
+wxMenu *MainFrame::menu_file = nullptr;
+wxMenu *MainFrame::menu_help = nullptr;
+wxMenuBar *MainFrame::menubar = nullptr;
 
-private:
-	void OnHello(wxCommandEvent &event);
-	void OnExit(wxCommandEvent &event);
-	void OnAbout(wxCommandEvent &event);
-};
-
-enum {
-	ID_Hello = 1
-};
-
-wxIMPLEMENT_APP(MyApp);
-
-bool MyApp::OnInit(void) {
-	MyFrame *frame = new MyFrame();
+bool Application::OnInit(void) {
+	// Initialize the frame.
+	MainFrame *frame = MainFrame::frame = new MainFrame();
 	frame->Show(true);
+	application = this;
 	return true;
 }
 
-MyFrame::MyFrame(void) : wxFrame(NULL, wxID_ANY, "Hello World") {
-	wxMenu *menuFile = new wxMenu;
-	menuFile->Append(ID_Hello, "&Hello...\tCtrl-H", "Help string shown in status bar for this menu item");
-	menuFile->AppendSeparator();
-	menuFile->Append(wxID_EXIT);
+MainFrame::MainFrame(void) : wxFrame(NULL, wxID_ANY, "VisX") {
+	wxMenu *menu_file = MainFrame::menu_file = new wxMenu();
+#ifdef __APPLE__
+	menu_file->Append(wxID_EXIT, "E&xit.\tCmd+Q", "Exits the program.");
+#else
+	menu_file->Append(wxID_EXIT, "E&xit.\tAlt+F4", "Exits the program.");
+#endif
 
-	wxMenu *menuHelp = new wxMenu;
-	menuHelp->Append(wxID_ABOUT);
+	wxMenu *menu_help = MainFrame::menu_help = new wxMenu();
+	menu_help->Append(wxID_ABOUT, "&About...", "Displays information about the program.");
 
-	wxMenuBar *menuBar = new wxMenuBar;
-	menuBar->Append(menuFile, "&File");
-	menuBar->Append(menuHelp, "&Help");
+	wxMenuBar *menubar = MainFrame::menubar = new wxMenuBar();
+	menubar->Append(menu_file, "&File");
+	menubar->Append(menu_help, "&Help");
 
-	SetMenuBar(menuBar);
+	SetMenuBar(menubar);
 
-	CreateStatusBar();
-	SetStatusText("Welcome to wxWidgets!");
-
-	Bind(wxEVT_MENU, &MyFrame::OnHello, this, ID_Hello);
-	Bind(wxEVT_MENU, &MyFrame::OnAbout, this, wxID_ABOUT);
-	Bind(wxEVT_MENU, &MyFrame::OnExit, this, wxID_EXIT);
+	Bind(wxEVT_MENU, &MainFrame::onExit, this, wxID_EXIT);
+	Bind(wxEVT_MENU, &MainFrame::onAbout, this, wxID_ABOUT);
 }
 
-void MyFrame::OnExit(wxCommandEvent &event) {
+void MainFrame::onExit(wxCommandEvent &event) {
 	Close(true);
 }
 
-void MyFrame::OnAbout(wxCommandEvent &event) {
-	wxMessageBox("This is a wxWidgets Hello World example", "About Hello World", wxOK | wxICON_INFORMATION);
+void MainFrame::onAbout(wxCommandEvent &event) {
+	wxMessageBox("VisX is a program which serves to help calculate and demonstrate various data and values in the field of physics.\n\nThis program uses wxWidgets to display content to the screen. wxWidgets' modified LGPL license does not require distribution of its sources.\nMore information about this project can be found at https://github.com/ljtpetersen/visx.\n\nCopyright (C) 2021 James Petersen\n\nThis program is free software: you can redistribute it and/or modify\nit under the terms of the GNU General Public Licnse as published by\nthe free Software Foundation, version 3.\n\nThis program is distributed in the hope that it will be useful, but\nWITHOUT ANY WARRANTY; without even the implied warranty of\nMERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU\nGeneral Public License for more details.\n\nYou should have received a copy of the GNU General Public License\nalong with this program. If not, see <http://www.gnu.org/licenses/>.", "About VisX", wxOK | wxICON_INFORMATION);
 }
-
-void MyFrame::OnHello(wxCommandEvent &event) {
-	wxLogMessage("Hello world from wxWidgets!");
-}
-
 

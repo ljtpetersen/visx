@@ -22,10 +22,33 @@
 #define JP_VISX_GUI_HPP
 
 #include <jp/def.h>
+#include <wx/wxprec.h>
+
+#ifndef WX_PRECOMP
+#include <wx/wx.h>
+#endif
 
 namespace jp {
 	namespace visx {
 		namespace gui {
+			class Application : public wxApp {
+			public:
+				static Application *application;
+				virtual bool OnInit(void);
+			};
+
+			class MainFrame : public wxFrame {
+			public:
+				static MainFrame *frame;
+				static wxMenu *menu_file,
+					*menu_help;
+				static wxMenuBar *menubar;
+				MainFrame(void);
+
+			private:
+				void onExit(wxCommandEvent &event);
+				void onAbout(wxCommandEvent &event);
+			};
 		} // namespace gui
 	} // namespace visx
 } // namespace jp
