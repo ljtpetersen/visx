@@ -24,4 +24,5 @@
 *.swp
 /build_log.txt
 /wxWidgets
+.DS_Store
 

@@ -40,14 +40,25 @@ namespace jp {
 			class MainFrame : public wxFrame {
 			public:
 				static MainFrame *frame;
-				static wxMenu *menu_file,
-					*menu_help;
+// On Apple (for now), there is no need for a file
+// or a help menu.
+#ifndef __APPLE__
+				static wxMenu *menu_file;
+#endif
+				static wxMenu *menu_help;
 				static wxMenuBar *menubar;
 				MainFrame(void);
 
 			private:
 				void onExit(wxCommandEvent &event);
 				void onAbout(wxCommandEvent &event);
+			};
+
+			enum {
+				ID_NULL,
+#ifdef __APPLE__
+				ID_ABOUT,
+#endif
 			};
 		} // namespace gui
 	} // namespace visx

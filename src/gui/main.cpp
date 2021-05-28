@@ -24,7 +24,9 @@ wxIMPLEMENT_APP(Application);
 
 MainFrame *MainFrame::frame = nullptr;
 Application *Application::application = nullptr;
+#ifndef __APPLE__
 wxMenu *MainFrame::menu_file = nullptr;
+#endif
 wxMenu *MainFrame::menu_help = nullptr;
 wxMenuBar *MainFrame::menubar = nullptr;
 
@@ -37,24 +39,32 @@ bool Application::OnInit(void) {
 }
 
 MainFrame::MainFrame(void) : wxFrame(NULL, wxID_ANY, "VisX") {
+	wxMenu *menu_help = MainFrame::menu_help = new wxMenu();
+
+#ifndef __APPLE__
 	wxMenu *menu_file = MainFrame::menu_file = new wxMenu();
-#ifdef __APPLE__
-	menu_file->Append(wxID_EXIT, "E&xit.\tCmd+Q", "Exits the program.");
-#else
 	menu_file->Append(wxID_EXIT, "E&xit.\tAlt+F4", "Exits the program.");
+
+	menu_help->Append(wxID_ABOUT, "&About...", "Displays information about the program.");
+#else
+	menu_help->Append(ID_ABOUT, "&About...", "Displays information about the program.");
 #endif
 
-	wxMenu *menu_help = MainFrame::menu_help = new wxMenu();
-	menu_help->Append(wxID_ABOUT, "&About...", "Displays information about the program.");
-
 	wxMenuBar *menubar = MainFrame::menubar = new wxMenuBar();
+#ifndef __APPLE__
 	menubar->Append(menu_file, "&File");
+#endif
+
 	menubar->Append(menu_help, "&Help");
 
 	SetMenuBar(menubar);
 
+#ifndef __APPLE__
 	Bind(wxEVT_MENU, &MainFrame::onExit, this, wxID_EXIT);
 	Bind(wxEVT_MENU, &MainFrame::onAbout, this, wxID_ABOUT);
+#else
+	Bind(wxEVT_MENU, &MainFrame::onAbout, this, ID_ABOUT);
+#endif
 }
 
 void MainFrame::onExit(wxCommandEvent &event) {
