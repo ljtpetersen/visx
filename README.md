@@ -15,11 +15,10 @@ to the creators and contributors of *wxWidgets* will be given.
 ## Building
 To build the library only, set cmake variable `VISX_NOEXE` to `TRUE`. To build the console version, set `VISX_CONONLY` to `TRUE`.
 On Windows, this project is compiled using MinGW and the `MinGW Makefiles` generator. On Linux, this project is compiled with the
-`Unix Makefiles` generator. On Mac, the project uses the `XCode` generator. So far,
-this project's GUI has yet to be built on platforms other than Windows. As well, this project uses wxWidgets version 3.1.5. A tar
+`Unix Makefiles` generator. On Mac, the project uses the `XCode` generator.
+As well, this project uses wxWidgets version 3.1.5. A tar
 archive containing this release is within the project root. To build the project, it must be extracted to the `wxWidgets` directory.
 On Linux, building requires GTK 3. On Debian, you can install it with
 ```sh
 $ sudo apt install libgtk-3-dev
 ```
-This program has not yet been built for Mac.

@@ -65,6 +65,10 @@ MainFrame::MainFrame(void) : wxFrame(NULL, wxID_ANY, "VisX") {
 #else
 	Bind(wxEVT_MENU, &MainFrame::onAbout, this, ID_ABOUT);
 #endif
+
+	module_selector = new wxChoice(this, ID_MODULE_SELECTOR, wxPoint(5, 5), wx);
+
+	this->SetClientSize(800, 600);
 }
 
 void MainFrame::onExit(wxCommandEvent &event) {
@@ -72,6 +76,6 @@ void MainFrame::onExit(wxCommandEvent &event) {
 }
 
 void MainFrame::onAbout(wxCommandEvent &event) {
-	wxMessageBox("VisX is a program which serves to help calculate and demonstrate various data and values in the field of physics.\n\nThis program uses wxWidgets to display content to the screen. wxWidgets' modified LGPL license does not require distribution of its sources.\nMore information about this project can be found at https://github.com/ljtpetersen/visx.\n\nCopyright (C) 2021 James Petersen\n\nThis program is free software: you can redistribute it and/or modify\nit under the terms of the GNU General Public Licnse as published by\nthe free Software Foundation, version 3.\n\nThis program is distributed in the hope that it will be useful, but\nWITHOUT ANY WARRANTY; without even the implied warranty of\nMERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU\nGeneral Public License for more details.\n\nYou should have received a copy of the GNU General Public License\nalong with this program. If not, see <http://www.gnu.org/licenses/>.", "About VisX", wxOK | wxICON_INFORMATION);
+	wxMessageBox(JP_VISX_GUI_ABOUTSTR, "About VisX", wxOK | wxICON_INFORMATION);
 }
 
