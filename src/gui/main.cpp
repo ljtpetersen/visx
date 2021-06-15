@@ -16,11 +16,9 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <jp/visx_gui.hpp>
+#include <jp/visx/gui/main.hpp>
 
 using namespace jp::visx::gui;
-
-wxIMPLEMENT_APP(Application);
 
 MainFrame *MainFrame::frame = nullptr;
 Application *Application::application = nullptr;
@@ -29,6 +27,9 @@ wxMenu *MainFrame::menu_file = nullptr;
 #endif
 wxMenu *MainFrame::menu_help = nullptr;
 wxMenuBar *MainFrame::menubar = nullptr;
+
+wxIMPLEMENT_APP(jp::visx::gui::Application);
+wxDECLARE_APP(jp::visx::gui::Application);
 
 bool Application::OnInit(void) {
 	// Initialize the frame.
@@ -59,17 +60,18 @@ MainFrame::MainFrame(void) : wxFrame(NULL, wxID_ANY, "VisX") {
 
 	SetMenuBar(menubar);
 
-#ifndef __APPLE__
-	Bind(wxEVT_MENU, &MainFrame::onExit, this, wxID_EXIT);
-	Bind(wxEVT_MENU, &MainFrame::onAbout, this, wxID_ABOUT);
-#else
-	Bind(wxEVT_MENU, &MainFrame::onAbout, this, ID_ABOUT);
-#endif
-
-	module_selector = new wxChoice(this, ID_MODULE_SELECTOR, wxPoint(5, 5), wx);
-
 	this->SetClientSize(800, 600);
 }
+
+BEGIN_EVENT_TABLE(MainFrame, wxFrame)
+#ifdef __APPLE__
+	EVT_MENU(ID_ABOUT, MainFrame::onAbout)
+#else
+	EVT_MENU(wxID_ABOUT, MainFrame::onAbout)
+	EVT_MENU(wxID_EXIT, MainFrame::onExit)
+#endif
+	EVT_SIZE(MainFrame::onSizeChange)
+END_EVENT_TABLE()
 
 void MainFrame::onExit(wxCommandEvent &event) {
 	Close(true);
@@ -77,5 +79,8 @@ void MainFrame::onExit(wxCommandEvent &event) {
 
 void MainFrame::onAbout(wxCommandEvent &event) {
 	wxMessageBox(JP_VISX_GUI_ABOUTSTR, "About VisX", wxOK | wxICON_INFORMATION);
+}
+
+void MainFrame::onSizeChange(wxSizeEvent &event) {
 }
 

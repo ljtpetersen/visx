@@ -56,12 +56,13 @@ namespace jp {
 #endif
 				static wxMenu *menu_help;
 				static wxMenuBar *menubar;
-				static wxChoice *module_selector;
 				MainFrame(void);
-
-			private:
 				void onExit(wxCommandEvent &event);
 				void onAbout(wxCommandEvent &event);
+				void onSizeChange(wxSizeEvent &event);
+
+			private:
+				DECLARE_EVENT_TABLE();
 			};
 
 			enum {
